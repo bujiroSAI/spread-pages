@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SPReAD コミュニティ・ナレッジ基盤 概念図</title>
+<style>
+  :root{
+    --bg:#f4f1e9; --surface:#ffffff; --surface2:#efeade;
+    --ink:#22303f; --sub:#5a6673; --faint:#8a94a3;
+    --navy:#122c4f; --blue:#0079e3; --line:#d8d2c2;
+    --hero-bg1:#122c4f; --hero-bg2:#1e3a5f; --hero-ink:#ffffff;
+    --l1:#0e5a8a; --l1-bg:#eef6fc; --l2:#0d7a5f; --l2-bg:#eef8f3; --l3:#8a5a0e; --l3-bg:#fbf6ea;
+    --must:#b91c1c; --ok:#166534; --next:#92400e;
+    --warn-bg:#fdf6e7; --warn-line:#b45309;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#10161f; --surface:#182231; --surface2:#131c29;
+      --ink:#dde4ee; --sub:#9fabbc; --faint:#71809a;
+      --navy:#a8c6ec; --blue:#4da3ff; --line:#2b3a50;
+      --hero-bg1:#0d1c33; --hero-bg2:#16304f; --hero-ink:#f0f5fc;
+      --l1:#5aa8dd; --l1-bg:#152538; --l2:#4fbf9a; --l2-bg:#132b26; --l3:#d9a84e; --l3-bg:#2a2214;
+      --must:#f47c7c; --ok:#6fd196; --next:#e0b26a;
+      --warn-bg:#251d10; --warn-line:#d9a84e;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10161f; --surface:#182231; --surface2:#131c29;
+    --ink:#dde4ee; --sub:#9fabbc; --faint:#71809a;
+    --navy:#a8c6ec; --blue:#4da3ff; --line:#2b3a50;
+    --hero-bg1:#0d1c33; --hero-bg2:#16304f; --hero-ink:#f0f5fc;
+    --l1:#5aa8dd; --l1-bg:#152538; --l2:#4fbf9a; --l2-bg:#132b26; --l3:#d9a84e; --l3-bg:#2a2214;
+    --must:#f47c7c; --ok:#6fd196; --next:#e0b26a;
+    --warn-bg:#251d10; --warn-line:#d9a84e;
+  }
+  :root[data-theme="light"]{
+    --bg:#f4f1e9; --surface:#ffffff; --surface2:#efeade;
+    --ink:#22303f; --sub:#5a6673; --faint:#8a94a3;
+    --navy:#122c4f; --blue:#0079e3; --line:#d8d2c2;
+    --hero-bg1:#122c4f; --hero-bg2:#1e3a5f; --hero-ink:#ffffff;
+    --l1:#0e5a8a; --l1-bg:#eef6fc; --l2:#0d7a5f; --l2-bg:#eef8f3; --l3:#8a5a0e; --l3-bg:#fbf6ea;
+    --must:#b91c1c; --ok:#166534; --next:#92400e;
+    --warn-bg:#fdf6e7; --warn-line:#b45309;
+  }
+
+  body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Noto Sans JP",sans-serif;
+       background:var(--bg); color:var(--ink); line-height:1.75; font-size:15.5px;}
+  main{max-width:960px; margin:0 auto; padding:0 20px 72px;}
+  section{margin-top:52px;}
+  h2{font-size:1.28rem; color:var(--navy); border-left:5px solid var(--blue); padding-left:12px;
+     margin-bottom:16px; text-wrap:balance;}
+  h3{font-size:1rem; color:var(--navy); text-wrap:balance;}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.85em;
+       background:var(--surface2); padding:1px 6px; border-radius:4px;}
+  .note{font-size:.85rem; color:var(--sub);}
+  .eyebrow{font-size:.72rem; letter-spacing:.2em; opacity:.78;}
+
+  .hero{background:linear-gradient(135deg,var(--hero-bg1),var(--hero-bg2)); color:var(--hero-ink);
+        padding:52px 20px 42px; border-radius:0 0 18px 18px;}
+  .hero-in{max-width:960px; margin:0 auto;}
+  .hero h1{font-size:1.75rem; margin:.45em 0 .35em; line-height:1.35; text-wrap:balance;}
+  .hero p{opacity:.92; font-size:.95rem; max-width:46em;}
+  .hero .meta{margin-top:16px; font-size:.78rem; opacity:.72;}
+
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px 22px;}
+  .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px;}
+
+  .badge{display:inline-block; font-size:.7rem; font-weight:700; padding:2px 10px; border-radius:999px;
+         color:#fff; vertical-align:middle; letter-spacing:.04em;}
+  .b1{background:var(--l1);} .b2{background:var(--l2);} .b3{background:var(--l3);}
+  .b-must{background:var(--must);} .b-ok{background:var(--ok);} .b-next{background:var(--next);}
+  .badge{color:#fff;}
+  @media (prefers-color-scheme: dark){ .badge{color:#10161f;} }
+  :root[data-theme="dark"] .badge{color:#10161f;}
+  :root[data-theme="light"] .badge{color:#fff;}
+
+  .stack{display:flex; flex-direction:column-reverse; margin-top:12px;}
+  .layer{border:2px solid; border-radius:12px; padding:18px 20px; position:relative;}
+  .layer + .layer{margin-bottom:28px;}
+  .layer .up{position:absolute; left:50%; transform:translateX(-50%); bottom:-26px;
+             font-size:1.15rem; color:var(--faint);}
+  .layer h3{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .layer ul{margin:10px 0 0 1.2em; font-size:.9rem;}
+  .layer li{margin:.3em 0;}
+  .l1{border-color:var(--l1); background:var(--l1-bg);}
+  .l2{border-color:var(--l2); background:var(--l2-bg);}
+  .l3{border-color:var(--l3); background:var(--l3-bg);}
+  .sub{font-size:.83rem; color:var(--sub);}
+  .future{border:1.5px dashed var(--faint); border-radius:8px; padding:10px 14px; margin-top:12px;
+          font-size:.85rem; background:var(--surface);}
+
+  .tblwrap{overflow-x:auto; margin-top:8px;}
+  table{width:100%; border-collapse:collapse; font-size:.87rem; background:var(--surface);}
+  th,td{border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top;}
+  th{background:var(--surface2); color:var(--navy); font-size:.8rem; white-space:nowrap;}
+
+  .callout{border-left:4px solid var(--warn-line); background:var(--warn-bg); padding:14px 18px;
+           border-radius:0 8px 8px 0; font-size:.88rem;}
+  .tl{list-style:none; margin-top:8px; padding-left:0;}
+  .tl li{padding:10px 0 10px 22px; border-left:2px solid var(--blue); position:relative; margin-left:8px;}
+  .tl li::before{content:""; position:absolute; left:-7px; top:17px; width:12px; height:12px;
+                 border-radius:50%; background:var(--blue);}
+  .tl .d{font-weight:700; color:var(--navy); margin-right:.6em; font-variant-numeric:tabular-nums;}
+  .qs{counter-reset:q; list-style:none; padding-left:0;}
+  .qs li{counter-increment:q; padding:12px 16px; background:var(--surface); border:1px solid var(--line);
+         border-radius:8px; margin-top:10px; font-size:.9rem;}
+  .qs li::before{content:"Q" counter(q); font-weight:800; color:var(--blue); margin-right:10px;}
+  footer{max-width:960px; margin:64px auto 0; padding:0 20px 40px; font-size:.75rem;
+         color:var(--faint); text-align:center;}
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <div class="eyebrow">SPReAD-1000 ／ AI for Science チャレンジ型 — 社内討議用</div>
+    <h1>SPReAD コミュニティ・ナレッジ基盤 概念図</h1>
+    <p>文科省 → BCG（プライム）→ スタジオサイタマ（実行）のもと運営する研究者コミュニティ（最大1,000名規模）に対し、<strong>データ収集（ストック）と還元（ナレッジ活用）の仕組み</strong>を構築する。コミュニティ活性化と、ナレッジの取得・活用——それ自体を活性化のトリガーと定義する。</p>
+    <div class="meta">2026-07-24 作成 ／ 細胞チームとの協業ディスカッション用 ／ ソース: 6/30内部MTG・7/23 SPReAD定例・00_事業概要</div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <h2>1. クライアント側の期待と、当社の責任範囲</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>上位レイヤーの課題（本質）</h3>
+      <p style="font-size:.9rem; margin-top:8px;">Slack上で知的な交流がまだ起きていない。参加者の多くは「計算資源をもらいに来たらコミュニティがついてきた」状態で、自発的発言はほぼない。</p>
+    </div>
+    <div class="card" style="border-color:var(--must);">
+      <h3>低レイヤーの課題（クライアントの直接オーダー） <span class="badge b-must">最優先</span></h3>
+      <p style="font-size:.9rem; margin-top:8px;">Slackがフリープランのため<strong>90日で過去投稿が消える</strong>。最大1,000名規模の学者コミュニティとしてユーザビリティが低く、参加者・BCG・事業主体の文科省から意見が出ている。</p>
+    </div>
+  </div>
+  <p class="note" style="margin-top:12px;">→ 優先度1は <strong>Slackおよび他資材のストック（アーカイブ）</strong>。ここまでがクライアント側の期待＝当社が必ず実現すべき責任範囲。その上の層は当社からの提案領域。</p>
+</section>
+
+<section>
+  <h2>2. 概念図 — 3層で積み上げる</h2>
+  <p class="note">下から順に積み上がる。①は必達、②まで実現できればほぼ100点、③は次の一手（導入自体はクライアント合意済み）。</p>
+
+  <div class="stack">
+
+    <div class="layer l1">
+      <div class="up">▲</div>
+      <h3><span class="badge b1">①ストック層（raw）</span> データ収集・蓄積 <span class="badge b-must">クライアント必達ライン</span></h3>
+      <ul>
+        <li><strong>Slackトーク履歴</strong> — 最重要。90日消失対策として<strong>定期取得・蓄積</strong>（読み取り専用の収集スクリプトは稼働可能な状態。現状はBCG業務chのみ、参加者chは同意整備＋BCG法務確認後に解禁）</li>
+        <li><strong>イベントの議事録・資料</strong> — 事務局の定期イベント＋参加者同士のミニイベント</li>
+        <li><strong>参加者の資料</strong> — 自己紹介資料（Box格納 161/約530人）、今後実施予定のアンケート結果</li>
+      </ul>
+      <div class="future">
+        <strong>開拓領域（将来のインプット）</strong>：参加者の研究情報・研究進捗。取得ハードルと機密の扱いがセンシティブだが、ここが知的財産の本丸。まずは公開情報（論文等）のクロールで各研究者のベースコンテキストを構築する案あり（6/30内部MTG）。
+      </div>
+    </div>
+
+    <div class="layer l2">
+      <div class="up">▲</div>
+      <h3><span class="badge b2">②ナレッジ層（wiki）</span> rawを蒸留した「コミュニティの理解」 <span class="badge b-ok">ここまでで現状の100点ライン</span></h3>
+      <ul>
+        <li><strong>AI向け</strong> — ③のエージェント／インターフェース層が参照する情報リソース（AI可読の索引・知識域）</li>
+        <li><strong>人間向け</strong> — 参加者が「これを見れば現状・今後のイベント・アップデートが分かる」ダイジェスト（社内報・索引的な見え方）。ウィークリーダイジェスト自動生成として開発進行中</li>
+      </ul>
+      <p class="sub" style="margin-top:10px;">出し先は未検討：Slackキャンバスの自動更新でも専用HTMLページでも可（ISMAP準拠ツールの範囲で選定。<strong>NotionはISMAP未登録のため不可が確定</strong>）。人間向けインターフェースの位置づけはBenten側のwiki設計と役割が異なる可能性あり → <strong>細胞チームに設計の異同を確認したい</strong>。参考: LLM Wikiパターン（RAGでなく永続wikiとして知識蓄積）・OKF。</p>
+    </div>
+
+    <div class="layer l3">
+      <h3><span class="badge b3">③エージェント層</span> コミュニティ常駐エージェント（Slack Bot） <span class="badge b-next">次の一手・導入は合意済み</span></h3>
+      <ul>
+        <li><strong>一次スコープ</strong> — イベント予定などの事実照会、参加者の質問への回答（②のナレッジ＋基本的なAI知識ベース）。これで十分</li>
+        <li><strong>将来像</strong> — 参加者同士のクロスオーバー交流の促進、発言の誘発など、コミュニティ活性化を直接強めるプロダクトへ</li>
+      </ul>
+      <p class="sub" style="margin-top:10px;">導入方法の一案：Bot専用チャンネルを「お助け部屋」として開放し、公開資料と公開情報のみをもとに回答。アクティブ参加者の動きを見て段階拡大（6/30内部MTG）。</p>
+    </div>
+
+  </div>
+
+  <div class="tblwrap" style="margin-top:24px;">
+    <table>
+      <tr><th></th><th>SPReAD側の層</th><th>細胞（Benten）側の対応概念</th></tr>
+      <tr><td><strong>①</strong></td><td>ストック層（raw）</td><td>文脈ストリームの収集層＝棚（shelf）に raw を貯める</td></tr>
+      <tr><td><strong>②</strong></td><td>ナレッジ層（wiki）</td><td>解釈層＝コンパイル済みの理解（wiki）× 生データ（raw）の2層</td></tr>
+      <tr><td><strong>③</strong></td><td>コミュニティ常駐エージェント</td><td>細胞（常駐エージェント）— 自分の身元・権限でMCPに参加して読む</td></tr>
+    </table>
+  </div>
+  <p class="note" style="margin-top:8px;">※ ほぼ細胞のスキームを踏襲する想定。差分は「②に人間向けダイジェストの顔を持たせる点」と「対象が社外の学術コミュニティである点（同意・機密・権限の壁が社内より厳しい）」。</p>
+</section>
+
+<section>
+  <h2>3. 環境とツールのルール</h2>
+  <div class="callout" style="margin-bottom:14px;">
+    <strong>大前提：ISMAP</strong>（政府情報システムのためのセキュリティ評価制度）。文科省事業のため、原則<strong>ISMAP登録済みサービスのリストの中からしかツールを使えない</strong>。
+  </div>
+
+  <div class="tblwrap">
+    <table>
+      <tr><th>ツール</th><th>用途</th><th>状態</th><th>ガバナンス（スタジオサイタマの権限）</th></tr>
+      <tr>
+        <td><strong>Slack</strong></td><td>コミュニケーション</td>
+        <td>フリープラン → <strong>90日でメッセージ消失</strong></td>
+        <td>◎ 当社がプライマリーオーナー／アドミン。実質何でもできる</td>
+      </tr>
+      <tr>
+        <td><strong>Box</strong></td><td>資料のクラウドストレージ</td>
+        <td>稼働中（自己紹介資料などの格納先）</td>
+        <td>△ 文科省側でアカウント開設のためAPI連携などが難しい。当社への移管を交渉中（本気を出せば実現できそうなレベル）</td>
+      </tr>
+      <tr>
+        <td><strong>Zoom</strong></td><td>ミーティング・配信</td>
+        <td>稼働中</td>
+        <td>△ BCGライセンス（ホスト権限は都度確認）</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3 style="margin-top:22px;">構築基盤：Azure（スタジオサイタマ所有）</h3>
+  <p style="font-size:.9rem; margin-top:6px;">当社所有のAzureサブスクリプション <code>spread1000</code>（リソースグループ <code>spread1000-rg</code>）上にシステム・データベースを構築する。</p>
+  <ul style="font-size:.9rem; margin:8px 0 0 1.3em;">
+    <li><strong>取り込み</strong> — Azure Functions（サーバレス関数）が Slack API／Box API からデータを受信</li>
+    <li><strong>蓄積</strong> — Azure Storage にrawデータを蓄積（＝①ストック層の実体）</li>
+    <li><strong>加工・生成</strong> — Azure OpenAI Service（<code>spread1000-asai</code>・Japan Eastリージョン＝国内でデータ処理）のGPT系モデルで要約・ナレッジ化（＝②の生成）</li>
+    <li><strong>還元</strong> — Slack配信＋Boxアーカイブ（ウィークリーダイジェストとして開発進行中・津田さん）</li>
+  </ul>
+</section>
+
+<section>
+  <h2>4. タイムライン</h2>
+  <ul class="tl">
+    <li><span class="d">7/27（月）午後</span>BCG × スタジオサイタマ MTG。<strong>それまでに社内で大枠（本資料の3層と進め方）を決めておく</strong>。実装は不要</li>
+    <li><span class="d">7/29（水）</span>文科省 × BCG 定例。コミュニティ施策として<strong>概念レベル＋体験レベル</strong>で「何をしようとしているか」を資料で伝える</li>
+    <li><span class="d">〜8月末</span>定例は週2（火10:30／木10:00）。キックオフ済（7/22）、以降が本格的なデータ蓄積フェーズ</li>
+  </ul>
+</section>
+
+<section>
+  <h2>5. 細胞チームとのディスカッションポイント</h2>
+  <ol class="qs">
+    <li><strong>細胞スキームの流用範囲</strong> — wiki×rawの2層、索引＋カーソルで「要る所だけ取りに行く」設計、権限の壁（部屋ごとの見える範囲）のうち、どこまでをSPReADに移植するか。開発分担はどう切るか</li>
+    <li><strong>②ナレッジ層の設計異同</strong> — Bentenのwiki（エージェントの接地用）に対し、SPReADでは人間向けダイジェストの顔も持たせたい。同一実体の2ビューとするか、別レイヤーに分けるか</li>
+    <li><strong>契約・データ帰属</strong> — 成果物がBCGに帰属する可能性があり、システム・データの扱いが不明確。現状こちらから要求できる状態にあるが未協議。全ツール・基盤が当社配下にある今のうちに方針を固める（要ディスカッション）</li>
+    <li><strong>参加者chデータ収集の同意設計</strong> — プライバシーポリシー・参加同意の整備＋BCG法務確認をどの順番・タイミングで進めるか</li>
+    <li><strong>研究情報インプットの段階設計</strong> — 公開情報クロール → アンケート → 研究進捗、と段階的に深める際の機密区分と格納設計</li>
+  </ol>
+</section>
+
+</main>
+
+<footer>スタジオサイタマ合同会社 ／ SPReAD（AI for Science チャレンジ型）／ 2026-07-24 ／ 社内討議用・取扱注意</footer>
+</body>
+</html>
