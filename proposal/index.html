@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SPReADコミュニティ｜知見を残す・整理する・返す仕組み（ご提案）</title>
+<style>
+  :root{
+    --ground:#f7f6f2; --panel:#ffffff; --panel2:#eeece4;
+    --ink:#232a30; --sub:#5b666f; --faint:#8d979f; --rule:#dcd8cc;
+    --sys:#0e4f57; --sys-bg:#eaf3f3;
+    --hum:#8c5111; --hum-bg:#f8f0e4;
+    --quiet:#4a5560; --quiet-bg:#eeefef;
+    --head1:#0d3a41; --head2:#124f58;
+    --onfill:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ground:#12171a; --panel:#1b2226; --panel2:#161d21;
+      --ink:#e0e6e8; --sub:#a3b0b6; --faint:#78868d; --rule:#2e3a40;
+      --sys:#5cbcc4; --sys-bg:#15292d;
+      --hum:#dda45f; --hum-bg:#2a2115;
+      --quiet:#9fadb6; --quiet-bg:#1c2429;
+      --head1:#0a2529; --head2:#0f3a41;
+      --onfill:#12171a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#12171a; --panel:#1b2226; --panel2:#161d21;
+    --ink:#e0e6e8; --sub:#a3b0b6; --faint:#78868d; --rule:#2e3a40;
+    --sys:#5cbcc4; --sys-bg:#15292d;
+    --hum:#dda45f; --hum-bg:#2a2115;
+    --quiet:#9fadb6; --quiet-bg:#1c2429;
+    --head1:#0a2529; --head2:#0f3a41;
+    --onfill:#12171a;
+  }
+  :root[data-theme="light"]{
+    --ground:#f7f6f2; --panel:#ffffff; --panel2:#eeece4;
+    --ink:#232a30; --sub:#5b666f; --faint:#8d979f; --rule:#dcd8cc;
+    --sys:#0e4f57; --sys-bg:#eaf3f3;
+    --hum:#8c5111; --hum-bg:#f8f0e4;
+    --quiet:#4a5560; --quiet-bg:#eeefef;
+    --head1:#0d3a41; --head2:#124f58;
+    --onfill:#ffffff;
+  }
+
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Noto Sans JP",sans-serif;
+    background:var(--ground); color:var(--ink); line-height:1.85; font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  main{max-width:820px; margin:0 auto; padding:0 22px 90px;}
+  section{margin-top:60px;}
+  p{margin-top:14px;}
+  strong{font-weight:700;}
+
+  .eyebrow{font-size:.7rem; letter-spacing:.22em; font-weight:700;}
+  .hero{background:linear-gradient(160deg,var(--head1),var(--head2)); color:#fff; padding:56px 22px 46px;}
+  .hero-in{max-width:820px; margin:0 auto;}
+  .hero .eyebrow{opacity:.72;}
+  .hero h1{font-size:1.85rem; line-height:1.45; margin:.5em 0 .4em; text-wrap:balance; font-weight:700;}
+  .hero .lead{opacity:.9; font-size:1rem; max-width:38em;}
+  .hero .meta{margin-top:22px; font-size:.76rem; opacity:.65; border-top:1px solid rgba(255,255,255,.18); padding-top:12px;}
+
+  h2{font-size:1.3rem; color:var(--sys); margin-bottom:6px; text-wrap:balance; font-weight:700; line-height:1.5;}
+  h2 .num{font-size:.72rem; letter-spacing:.16em; display:block; color:var(--faint); font-weight:700; margin-bottom:6px;}
+  h3{font-size:1.02rem; margin-top:26px; text-wrap:balance; font-weight:700;}
+  .rule{height:2px; background:var(--sys); width:44px; margin:14px 0 22px; opacity:.55;}
+
+  .panel{background:var(--panel); border:1px solid var(--rule); border-radius:10px; padding:22px 24px;}
+  .panel + .panel{margin-top:14px;}
+  .grid{display:grid; gap:14px; margin-top:20px;}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(210px,1fr));}
+
+  .voice{background:var(--panel); border:1px solid var(--rule); border-top:3px solid var(--hum); border-radius:8px; padding:18px 20px;}
+  .voice .cnt{font-size:.72rem; font-weight:700; color:var(--hum); letter-spacing:.08em; font-variant-numeric:tabular-nums;}
+  .voice h4{font-size:.98rem; margin:6px 0 10px; font-weight:700; line-height:1.55;}
+  .voice q{font-size:.86rem; color:var(--sub); display:block; margin-top:6px; font-style:normal;}
+  .voice q::before{content:"「";} .voice q::after{content:"」";}
+
+  .turn{margin-top:26px; padding:20px 24px; background:var(--sys-bg); border-radius:10px; border:1px solid var(--rule);}
+  .turn .three{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:12px; font-weight:700; color:var(--sys); font-size:1.02rem;}
+  .turn .arw{color:var(--faint); font-weight:400;}
+
+  .stance{border-left:4px solid var(--quiet); background:var(--quiet-bg); border-radius:0 10px 10px 0; padding:20px 24px; margin-top:18px;}
+  .stance h3{margin-top:0;}
+  .stance ul{margin:12px 0 0 1.15em;}
+  .stance li{margin:.45em 0;}
+
+  .layers{display:flex; flex-direction:column-reverse; margin-top:22px;}
+  .lay{border:1.5px solid var(--sys); background:var(--panel); border-radius:10px; padding:18px 20px; position:relative;}
+  .lay + .lay{margin-bottom:30px;}
+  .lay::after{content:"▲"; position:absolute; left:50%; transform:translateX(-50%); bottom:-27px; color:var(--faint); font-size:1rem;}
+  .layers .lay:last-child::after{content:none;}
+  .lay .tag{display:inline-block; background:var(--sys); color:var(--onfill); font-size:.7rem; font-weight:700; padding:3px 12px; border-radius:999px; letter-spacing:.06em;}
+  .lay h4{font-size:1.05rem; margin:10px 0 6px; font-weight:700;}
+  .lay p{font-size:.9rem; color:var(--sub); margin-top:4px;}
+  .lay ul{margin:10px 0 0 1.15em; font-size:.89rem;}
+  .lay li{margin:.3em 0;}
+  .lay--key{background:var(--sys-bg);}
+
+  .ladder{margin-top:22px; display:flex; flex-direction:column-reverse; gap:5px;}
+  .rung{display:flex; align-items:baseline; gap:12px; padding:9px 16px; border-radius:6px; background:var(--panel); border:1px solid var(--rule); font-size:.9rem;}
+  .rung .n{font-size:.72rem; font-weight:700; color:var(--faint); letter-spacing:.06em; min-width:2.8em; font-variant-numeric:tabular-nums;}
+  .rung .w{font-weight:700;}
+  .rung .p{color:var(--sub); font-size:.82rem; margin-left:auto; text-align:right;}
+  .rung--now{background:var(--hum-bg); border-color:var(--hum);}
+  .rung--now .n{color:var(--hum);}
+  .nowtag{display:inline-block; background:var(--hum); color:var(--onfill); font-size:.68rem; font-weight:700; padding:2px 10px; border-radius:999px; letter-spacing:.06em; margin-bottom:10px;}
+
+  .tblwrap{overflow-x:auto; margin-top:20px;}
+  table{width:100%; border-collapse:collapse; font-size:.88rem; background:var(--panel);}
+  th,td{border:1px solid var(--rule); padding:11px 13px; text-align:left; vertical-align:top;}
+  th{background:var(--panel2); font-size:.79rem; font-weight:700; letter-spacing:.03em;}
+  td.c{text-align:center; font-weight:700; white-space:nowrap;}
+
+  .step{background:var(--panel); border:1px solid var(--rule); border-radius:10px; padding:22px 24px; margin-top:16px;}
+  .step .k{font-size:.7rem; font-weight:700; letter-spacing:.14em; color:var(--sys);}
+  .step h3{margin:6px 0 0;}
+
+  .slack{background:var(--panel2); border:1px solid var(--rule); border-radius:8px; padding:16px 18px; margin-top:14px;
+         font-size:.86rem; line-height:1.8; white-space:pre-wrap;}
+  .slack .who{font-weight:700; font-size:.8rem; color:var(--sub); display:block; margin-bottom:8px; letter-spacing:.04em;}
+
+  .idea{border:1.5px dashed var(--faint); border-radius:10px; padding:20px 24px; margin-top:16px; background:transparent;}
+  .idea h3{margin-top:0;}
+  .idea .lbl{font-size:.7rem; font-weight:700; letter-spacing:.14em; color:var(--faint);}
+
+  ol.ask{counter-reset:a; list-style:none; padding-left:0; margin-top:18px;}
+  ol.ask li{counter-increment:a; position:relative; padding:14px 18px 14px 52px; background:var(--panel);
+            border:1px solid var(--rule); border-radius:8px; margin-top:10px; font-size:.92rem;}
+  ol.ask li::before{content:counter(a); position:absolute; left:18px; top:14px; font-weight:800; color:var(--sys);
+                    font-size:.95rem; font-variant-numeric:tabular-nums;}
+
+  ul.plain{margin:14px 0 0 1.15em;} ul.plain li{margin:.4em 0;}
+  .note{font-size:.85rem; color:var(--sub);}
+  footer{max-width:820px; margin:70px auto 0; padding:22px 22px 50px; font-size:.75rem; color:var(--faint);
+         text-align:center; border-top:1px solid var(--rule);}
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <div class="eyebrow">SPReAD-1000 ／ AI for Science 研究革新プログラム（チャレンジ型）</div>
+    <h1>コミュニティの知見を<br>残す・整理する・返す仕組み</h1>
+    <p class="lead">7月22日の第1回キックオフで参加者の皆さまから届いた声への、対応方針のご提案です。まず何から始めるかを中心にご説明します。</p>
+    <div class="meta">2026年7月／スタジオサイタマ合同会社　※本資料は試行（POC）としてのご提案であり、実施内容は段階ごとにご相談のうえ判断させてください</div>
+  </div>
+</header>
+
+<main>
+
+<!-- 1 -->
+<section>
+  <h2><span class="num">SECTION 1</span>キックオフで届いた声</h2>
+  <div class="rule"></div>
+  <p>第1回キックオフでは、約40のブレイクアウトルームに分かれて議論いただきました。各ルームからの報告を整理すると、参加者の声は大きく3つに集約されます。</p>
+
+  <div class="grid g3">
+    <div class="voice">
+      <div class="cnt">約10室で言及</div>
+      <h4>ログが流れてしまう</h4>
+      <q>90日で過去のやりとりが消えてしまう</q>
+      <q>記録をAIでまとめて確認したい</q>
+    </div>
+    <div class="voice">
+      <div class="cnt">約10室で言及</div>
+      <h4>誰が何を知っているか見えない</h4>
+      <q>自己紹介シートを分析して還元してほしい</q>
+      <q>近い関心の人を知りたい</q>
+    </div>
+    <div class="voice">
+      <div class="cnt">約8室で言及</div>
+      <h4>事例・Tipsが欲しい</h4>
+      <q>成功例より失敗例を知りたい</q>
+      <q>どう実装したかまで踏み込んで聞きたい</q>
+    </div>
+  </div>
+
+  <div class="turn">
+    <p style="margin-top:0;">この3つは別々の要望に見えますが、私たちは<strong>一つの要望</strong>として読んでいます。知見が残らないから見えず、見えないから事例も共有されない——ひとつながりの課題です。</p>
+    <div class="three">
+      <span>残す</span><span class="arw">→</span><span>整理する</span><span class="arw">→</span><span>返す</span>
+    </div>
+    <p class="note" style="margin-top:10px;">知見を残し、使える形に整理し、人と人がつながる形で返す。この一連の流れをつくることが、3つの声すべてへの答えになると考えています。</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section>
+  <h2><span class="num">SECTION 2</span>この提案の位置づけと、私たちの姿勢</h2>
+  <div class="rule"></div>
+  <p>具体の話に入る前に、本件をどういうものとしてご提案しているかを申し上げます。</p>
+
+  <div class="stance">
+    <h3>事業上の位置づけ — 試行（POC）としてのご提案</h3>
+    <ul>
+      <li>本件は、<strong>当初の運営管理業務のスコープに含まれているものではありません</strong>。</li>
+      <li>キックオフで届いた声に応えるため、<strong>当社が自主的に検討している試行</strong>としてご提案するものです。</li>
+      <li>段階的に進め、<strong>各段階の結果を見て次に進むかどうかを、その都度ご相談のうえ判断</strong>させてください。全体を一括してお約束するものではありません。</li>
+      <li>仕組みやデータの取り扱い、体制・費用の整理については、進め方の方向性が固まった段階で改めてご相談させてください。</li>
+    </ul>
+  </div>
+
+  <div class="stance" style="border-left-color:var(--hum); background:var(--hum-bg);">
+    <h3>参加者に対する姿勢 — 一段低い位置から手を添える</h3>
+    <ul>
+      <li>本事業における当社の基本コンセプトは、<strong>「フロントに立つリーダーではなく、研究者のニーズを吸い上げ、柔軟に企画・解決策を提示するサポート役に徹する」</strong>ことです。本件もその延長線上にあります。</li>
+      <li>キックオフでも<strong>「このコミュニティは皆さんと一緒に育てていく場」</strong>とお伝えしました。事務局が管理する仕組みではなく、参加者の動きに合わせて手を添える仕組みとして設計します。</li>
+      <li>研究者コミュニティでは、事務局が上から与える施策は機能しにくいと考えています。<strong>一段低い位置に立つことは、配慮というより、実際に機能させるための方法</strong>です。仕組みは前に出しません。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 3 -->
+<section>
+  <h2><span class="num">SECTION 3</span>考え方①　3つの層で考える</h2>
+  <div class="rule"></div>
+  <p>「残す・整理する・返す」を仕組みとして描くと、3つの層になります。下から順に積み上がる関係です。</p>
+
+  <div class="layers">
+    <div class="lay">
+      <span class="tag">第1層</span>
+      <h4>残す — 集めて保全する</h4>
+      <p>Slackの投稿、イベントの記録、週次の活動報告などを、消えない場所に保全します。</p>
+      <ul>
+        <li>Slackの90日問題は、ここで実質的に解決します</li>
+        <li>加工せずそのまま保存し、いつでも元の投稿にさかのぼれる形にします</li>
+      </ul>
+    </div>
+
+    <div class="lay lay--key">
+      <span class="tag">第2層</span>
+      <h4>整理する — AIと人の両方が読める索引をつくる</h4>
+      <p>ここが分かれ目です。ただ保存しただけの倉庫は、量が増えるほど使えなくなります。使える形に整理する層が要ります。</p>
+      <ul>
+        <li><strong>メンバーページ</strong>：研究関心・AI活用の状況・コミュニティでの動き（自己紹介シートを初期値に、変化を追う）</li>
+        <li><strong>事例・困りごとの索引</strong>：「こういう課題に悩んだ」「こうトライした」の一覧</li>
+        <li><strong>接点の記録</strong>：誰と誰が、どこで出会ったか</li>
+        <li><strong>週次ダイジェストのアーカイブ</strong></li>
+      </ul>
+    </div>
+
+    <div class="lay">
+      <span class="tag">第3層</span>
+      <h4>返す — 参加者に届く形にする</h4>
+      <p>整理したものを、参加者が受け取れる形で還元します。読むだけで現状がわかる週次レポートから始めます。</p>
+    </div>
+  </div>
+
+  <h3>この3層が揃うと、3つの声はすべてつながります</h3>
+  <div class="tblwrap">
+    <table>
+      <tr><th>キックオフで届いた声</th><th>どの層が答えるか</th></tr>
+      <tr><td>ログが流れてしまう</td><td><strong>第1層</strong>：保全することで、消えなくなる</td></tr>
+      <tr><td>誰が何を知っているか見えない</td><td><strong>第2層</strong>：メンバーページと接点の記録が、見える状態をつくる</td></tr>
+      <tr><td>事例・Tipsが欲しい</td><td><strong>第2層＋第3層</strong>：事例の索引を整え、届く形で返す</td></tr>
+    </table>
+  </div>
+  <p class="note">3つの要望に3つの機能で個別対応するのではなく、ひとつの流れをつくることで同時に応える——これが本提案の基本的な考え方です。</p>
+</section>
+
+<!-- 4 -->
+<section>
+  <h2><span class="num">SECTION 4</span>考え方②　関与は段階的に育てる</h2>
+  <div class="rule"></div>
+  <p>仕組みだけでは、コミュニティは動きません。参加者の関わり方にも段階があり、そこを飛ばすと施策は空回りします。私たちは参加のしかたを7つの段で捉えています。</p>
+
+  <span class="nowtag">今はこの下段を厚くする時期です</span>
+  <div class="ladder">
+    <div class="rung"><span class="n">段6</span><span class="w">登壇する</span><span class="p">有志の研究発表</span></div>
+    <div class="rung"><span class="n">段5</span><span class="w">他の人に応答する</span><span class="p">全チャンネル</span></div>
+    <div class="rung"><span class="n">段4</span><span class="w">自由に公開投稿する</span><span class="p">雑談・領域別ch</span></div>
+    <div class="rung"><span class="n">段3</span><span class="w">決まった形で公開投稿する</span><span class="p">週次1問</span></div>
+    <div class="rung rung--now"><span class="n">段2</span><span class="w">事務局にだけ話す</span><span class="p">非公開フォーム</span></div>
+    <div class="rung rung--now"><span class="n">段1</span><span class="w">リアクションする</span><span class="p">スタンプ</span></div>
+    <div class="rung rung--now"><span class="n">段0</span><span class="w">読む</span><span class="p">全チャンネル・週次レポート</span></div>
+  </div>
+
+  <h3>立ち上げ期は、いきなり公開投稿を求めません</h3>
+  <p>1,000人規模のコミュニティでは「自分の質問は場違いではないか」という感覚が働きます。まず読むだけ・スタンプだけでよい場所を用意し、各段に「場」と「見返り」を置きます。</p>
+
+  <div class="panel" style="margin-top:18px;">
+    <h3 style="margin-top:0;">効きどころは、段2から段3への橋</h3>
+    <p>非公開で事務局に届いた話を、<strong>ご本人の許諾のうえで週次レポートに載せます</strong>。ご本人は公開の場に投稿しないまま「読まれた・反応があった」という体験だけを先にできます。その次から、自分で書けるようになる。</p>
+    <p class="note">この一手があることで、週次レポートは単なるお知らせではなく、発話を引き出す装置になります。</p>
+  </div>
+
+  <p style="margin-top:22px;">3つの層は、この階段を上がるための手すりです。<strong>だから施策も一気に展開せず、段に合わせて重ねていきます。</strong></p>
+</section>
+
+<!-- 5 -->
+<section>
+  <h2><span class="num">SECTION 5</span>施策の全体像</h2>
+  <div class="rule"></div>
+  <p>全体としては、集める側に3つの系統、返す側に3つの段階を想定しています。ただし後述のとおり、<strong>まず着手するのは第1段階のみ</strong>です。</p>
+
+  <h3>集める（第1層）</h3>
+  <div class="tblwrap">
+    <table>
+      <tr><th>系統</th><th>内容</th><th>実現性</th></tr>
+      <tr>
+        <td><strong>週次の活動報告</strong></td>
+        <td>「今週AIでこんなことをやった」を週1回、テンプレートに沿って非公開フォームで回答いただく</td>
+        <td class="c">◎ すぐ着手可</td>
+      </tr>
+      <tr>
+        <td><strong>イベントの記録</strong></td>
+        <td>キックオフや学び合い会など、既存イベントの記録の取り方を変えて資産として残す</td>
+        <td class="c">○ 運用の調整</td>
+      </tr>
+      <tr>
+        <td><strong>AI利用ログ</strong></td>
+        <td>計算資源側の利用ログを活用する。参加者の負担なく最も深いデータが得られる</td>
+        <td class="c">△ 継続検討</td>
+      </tr>
+    </table>
+  </div>
+  <p class="note">AI利用ログは研究上の秘匿などハードルが高いため、他の運用実績で信頼をいただいたうえで、改めてご相談する位置づけとしています。</p>
+
+  <h3>返す（第3層）</h3>
+  <div class="tblwrap">
+    <table>
+      <tr><th>段階</th><th>内容</th><th>対応する段</th></tr>
+      <tr>
+        <td class="c">第1段階</td>
+        <td><strong>週次レポートの配信</strong>。「今週この場で何が語られたか」をまとめて届ける。参加者は読むだけでよい</td>
+        <td>段0〜1</td>
+      </tr>
+      <tr>
+        <td class="c">第2段階</td>
+        <td>拾いきれなかった悩みを関連しそうな方にお繋ぎするなど、<strong>個別のお声がけ</strong>を始める</td>
+        <td>段2〜3</td>
+      </tr>
+      <tr>
+        <td class="c">第3段階</td>
+        <td>個別の投稿に応答する<strong>コミュニティ常駐ボット</strong>（構想）</td>
+        <td>段3〜5</td>
+      </tr>
+    </table>
+  </div>
+  <p class="note">第2段階以降は現時点では構想であり、第1段階の結果を踏まえて改めてご相談させてください。</p>
+</section>
+
+<!-- 6 -->
+<section>
+  <h2><span class="num">SECTION 6</span>まず始めること</h2>
+  <div class="rule"></div>
+  <p>8月上旬までに着手したいのは、次の3つです。いずれも大がかりな準備を必要としません。</p>
+
+  <div class="step">
+    <div class="k">初手 その1</div>
+    <h3>ログの保全を始める</h3>
+    <p>Slackの投稿を保全する仕組みを本番接続します。<strong>「90日で消える」への直接の答え</strong>であり、参加者に新たな負担は生じません。収集の範囲と参加者への説明文言は、事前にご相談させてください。</p>
+  </div>
+
+  <div class="step">
+    <div class="k">初手 その2</div>
+    <h3>週に1問だけ、質問を投げる</h3>
+    <p>いきなり「AI活用事例を投稿してください」とお願いしても、手は挙がりません。<strong>1問だけのアンケート</strong>から始めます。答えるのは1分、非公開、うまくいかなかった話も歓迎する——参加のハードルを徹底的に下げます。</p>
+
+    <div class="slack">
+<span class="who">＃ 事務局からの投稿（イメージ）</span>📣 今週の1問
+
+今週、AIに何をやらせましたか？
+うまくいかなかったことでも大歓迎です。
+
+▼ こんな粒度で大丈夫です
+・論文PDFを20本読ませて、手法だけ表にまとめさせた
+・手書きの実験ノートをテキスト化したかったが、精度が出なかった
+
+▶ 回答はこちら（1分・非公開）
+※いただいた内容は事務局でまとめ、翌週のレポートでご紹介します（お名前を出すかは選べます）</div>
+
+    <p style="margin-top:18px;"><strong>大事なのは、返すところまでを必ずセットにすること</strong>です。回答が集まったら、翌週かならず結果をお返しします。「答えたら返ってきた」という体験が、次の回答を生みます。</p>
+
+    <div class="slack">
+<span class="who">＃ 翌週のお返し（イメージ）</span>📊 今週の1問・結果
+
+23名の方にご回答いただきました。ありがとうございます！
+
+いちばん多かったのは「文献の読み込み・整理」（9名）。
+次いで「コードを書かせる」（5名）、「データの前処理」（4名）。
+
+▼ 気になった声
+「手書きの実験ノートをテキスト化したいが精度が出ない」（材料系の方）
+　→ 同じことで悩んでいる方、いらっしゃいませんか？ 🙋 のスタンプで教えてください</div>
+
+    <p class="note" style="margin-top:14px;">※ 投稿文は現時点でのたたき台です。実際の配信前に文面をご確認いただきます。</p>
+  </div>
+
+  <div class="step">
+    <div class="k">初手 その3</div>
+    <h3>イベントの記録の取り方を変える</h3>
+    <p>第1回キックオフでは約40のブレイクアウトルームで議論いただきましたが、<strong>その場の内容は参加者ご自身のメモに留まり、共有できる記録としてはほとんど残りませんでした</strong>。せっかくの議論が、その日で終わってしまっています。</p>
+    <p>次回以降のイベントでは、記録が残る形に運営を変えることをご提案します。たとえば各ルームに簡単な記入シートを1枚用意してその場で埋めていただく、終了時にひと言だけ投稿していただく、といった小さな工夫です。</p>
+    <p class="note">これにより、イベントが「その日で終わるもの」から「後から参照できる資産」に変わります。新しい施策を足すのではなく、<strong>すでにやっていることの取り方を変えるだけ</strong>で成立するのが利点です。</p>
+  </div>
+
+  <p style="margin-top:26px;">この3つを回してみて、参加者の反応を見ながら次の段階をご相談させてください。<strong>スケジュールは、コミュニティの育ち方に合わせて都度調整すべきもの</strong>と考えており、現時点で全体の工程表をお示しすることはいたしません。</p>
+</section>
+
+<!-- 7 -->
+<section>
+  <h2><span class="num">SECTION 7</span>その先に考えていること（構想）</h2>
+  <div class="rule"></div>
+  <p class="note">以下は現時点での構想であり、実施をお約束するものではありません。方向性の共有としてご覧ください。</p>
+
+  <div class="idea">
+    <div class="lbl">IDEA 01</div>
+    <h3>参加者どうしが教え合う場をつくる</h3>
+    <p>短い発表セッションのような、参加者が参加者に説明する場です。会話は文章より情報量が多く、記録としての価値も高くなります。</p>
+    <p>ただしこれは、単に会を開けば成立するものではありません。<strong>動きのよい方への声がけや、コミュニティリーダーとなる方を見つけていく活動とセット</strong>になります。そうした方が見えてきた段階で、改めてご相談したいと考えています。</p>
+  </div>
+
+  <div class="idea">
+    <div class="lbl">IDEA 02</div>
+    <h3>人と知見をつなぐ、コミュニティ常駐ボット</h3>
+    <p>投稿に対して「その課題、先月◯◯さんが似たことを書かれていました」と過去の知見や近い関心の方にお繋ぎする役割です。一般的な質問応答ボットとは異なり、<strong>このコミュニティの中で起きたことを知っていることが前提</strong>になります。</p>
+    <p>逆に言えば、第1層・第2層が育っていなければ機能しません。<strong>いま着手する記録と整理は、この段階の土台にもなります</strong>。導入の可否・時期・範囲については、土台が整った段階で改めてご相談させてください。</p>
+  </div>
+</section>
+
+<!-- 8 -->
+<section>
+  <h2><span class="num">SECTION 8</span>安全面の取り扱い</h2>
+  <div class="rule"></div>
+  <p>参加者の投稿を扱う以上、以下は前提として設計しています。</p>
+
+  <div class="tblwrap">
+    <table>
+      <tr><th>観点</th><th>取り扱い</th></tr>
+      <tr>
+        <td><strong>AIの学習利用</strong></td>
+        <td>ありません。使用するAzure OpenAI Serviceでは、入力・出力ともAIモデルの学習には使われず、外部（OpenAI社）にも送信されません</td>
+      </tr>
+      <tr>
+        <td><strong>政府調達の要件</strong></td>
+        <td>Microsoft Azure（OpenAI Serviceを含む）はISMAPクラウドサービスリストに登録済みです</td>
+      </tr>
+      <tr>
+        <td><strong>集める範囲</strong></td>
+        <td>事務局が指定した公開チャンネルのみです。DM・非公開チャンネルは対象外です</td>
+      </tr>
+      <tr>
+        <td><strong>使わないこと</strong></td>
+        <td>個人へのネガティブな評価には使いません（「発言が少ない方の一覧」といったものは作成しません）</td>
+      </tr>
+      <tr>
+        <td><strong>検証できること</strong></td>
+        <td>AIがまとめた内容は、必ず元の投稿にさかのぼれる形にします。要約に誤りがあれば原文で確認できます</td>
+      </tr>
+      <tr>
+        <td><strong>閲覧できる人</strong></td>
+        <td>事務局メンバーに限定します。参加者への公開範囲は今後のご相談事項です</td>
+      </tr>
+      <tr>
+        <td><strong>参加者への説明</strong></td>
+        <td>収集の範囲・用途については、開始前に文面をご確認いただいたうえで参加者にお伝えします</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- 9 -->
+<section>
+  <h2><span class="num">SECTION 9</span>ご相談したいこと</h2>
+  <div class="rule"></div>
+  <ol class="ask">
+    <li><strong>ログ保全の方針</strong> — Slackの有料化と、当社側での保全の関係整理（併用か、保全で代替か）。キックオフでは参加者側からも同じ発想の声が出ており、方針は早めに定めたいところです</li>
+    <li><strong>参加者への説明と同意</strong> — 収集範囲・用途・お名前の出し方について、参加者にお伝えする文面のご確認</li>
+    <li><strong>イベント記録の取り方の変更</strong> — 次回イベントからの適用の可否と、運営分担</li>
+    <li><strong>本件の位置づけの整理</strong> — 当初スコープ外の試行としての進め方、および仕組み・データの取り扱いについて、どのように整理を進めるか</li>
+    <li><strong>計算資源のログ</strong> — 提供形態と管理権限の確認（従来からの継続論点）</li>
+  </ol>
+</section>
+
+</main>
+
+<footer>
+  スタジオサイタマ合同会社 ／ SPReAD-1000 コミュニティ運営<br>
+  本資料は試行（POC）としてのご提案であり、記載内容の実施をお約束するものではありません
+</footer>
+</body>
+</html>
