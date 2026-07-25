@@ -121,7 +121,7 @@
   .lay{border:1.5px solid var(--sys2); background:var(--panel); border-radius:10px; padding:16px 18px; position:relative;}
   .lay + .lay{margin-bottom:28px;}
   .lay::after{content:"▲"; position:absolute; left:50%; transform:translateX(-50%); bottom:-25px; color:var(--faint); font-size:.95rem;}
-  .layers .lay:last-child::after{content:none;}
+  .layers .lay:first-child::after{content:none;}
   .lay .tag{display:inline-block; background:var(--sys2); color:var(--onfill); font-size:.69rem;
             font-weight:700; padding:3px 11px; border-radius:999px; letter-spacing:.05em;}
   .lay h4{font-size:1.02rem; margin:9px 0 5px;}
