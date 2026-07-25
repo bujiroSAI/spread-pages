@@ -99,7 +99,14 @@
   .box--h{border-left:4px solid var(--hum2); background:var(--hum-bg);}
   .box--s{border-left:4px solid var(--sys2); background:var(--sys-bg);}
   .box--yes{border-top:3px solid var(--sys2);}
-  .box--no{border-top:3px solid var(--quiet);}
+
+  .defs{display:flex; flex-direction:column; gap:8px; margin-top:18px;}
+  .df{display:grid; grid-template-columns:96px 1fr; gap:16px; align-items:baseline;
+      background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:13px 16px;}
+  .df .lb{font-weight:700; font-size:.83rem; color:var(--onfill); background:var(--sys);
+          border-radius:5px; padding:3px 0; text-align:center; letter-spacing:.06em;}
+  .df .tx{font-size:.92rem;}
+  @media (max-width:560px){ .df{grid-template-columns:1fr; gap:7px;} .df .lb{justify-self:start; padding:3px 14px;} }
 
   /* 3層 */
   .layers{display:flex; flex-direction:column-reverse; margin-top:18px;}
@@ -207,32 +214,24 @@
 <section>
   <h2><span class="num">02</span>POC（試行）として導入し、段階ごとに継続を判断する</h2>
   <div class="rule"></div>
-  <p class="lede">本件は当初の運営管理業務のスコープに含まれない。キックオフで挙がった声への対応として、スタジオサイタマから提案するもの。既存の契約枠内で完成を確約できる性質ではないため、<strong>POCとして位置づけ、段階ごとに継続を判断する形で進めたい</strong>。</p>
-
-  <div class="grid g2">
-    <div class="box box--yes">
-      <h3>今回お約束する範囲</h3>
-      <ul>
-        <li>初手3施策（ログ保全・週次アンケート・イベント記録の様式変更）の着手</li>
-        <li>収集範囲と用途の事前開示、参加者への周知文面の提示</li>
-        <li>各段階の結果報告と、次段階に進むかどうかの相談</li>
-      </ul>
-    </div>
-    <div class="box box--no">
-      <h3>現時点でお約束しない範囲</h3>
-      <ul>
-        <li>初手より先の施策（個別のお繋ぎ・常駐ボット等）の実施</li>
-        <li>完成時期・搭載機能の確定</li>
-        <li>発話数の増加など、特定の成果の達成</li>
-      </ul>
-    </div>
+  <div class="defs">
+    <div class="df"><span class="lb">前提</span><span class="tx">当初の運営管理業務スコープに含まれていないシステムの開発に着手することを、ご了承いただきたい。</span></div>
+    <div class="df"><span class="lb">立て付け</span><span class="tx">PoC的な位置付けとして、コミュニティを良くすることに挑戦する積極的施策。</span></div>
+    <div class="df"><span class="lb">方針</span><span class="tx">参加者の声を受けて改善していく仕組み自体の実装。<strong>質＜態度</strong>。ある程度下手・巻き込み型で順次実装していく。</span></div>
   </div>
-  <p class="note">文科省への説明においても、確定した施策ではなく<strong>試行として扱っていただきたい</strong>。段階を区切ることで、途中で止める判断も含めて双方が取りやすい形にしている。</p>
+
+  <div class="box box--yes" style="margin-top:18px;">
+    <h3>確実に抑えたい範囲</h3>
+    <ul>
+      <li>ログの保全とデータの利活用のシステム開発</li>
+      <li>各段階の結果の検証と、ステップアップの相談</li>
+    </ul>
+  </div>
 
   <div class="box box--q" style="margin-top:18px;">
-    <h3>あわせて整理が必要な事項</h3>
+    <h3>あわせて今後ご相談したい事項</h3>
     <ul>
-      <li><strong>システム・データの帰属</strong> — 現行契約では扱いが明確でない。スタジオサイタマのAzure環境上に構築するため、成果物・蓄積データの権利について整理が必要</li>
+      <li><strong>システム・データの帰属</strong> — 本件で扱う参加者のデータは既存の契約の範囲での取り扱いとする。一方で開発するシステムは含めない想定</li>
       <li><strong>参加者への開示と同意</strong> — 収集範囲・用途・匿名度の選択肢について、周知文面のレビューと合意</li>
       <li><strong>生成物の取り扱い</strong> — AIが生成したレポート等の権利と、二次利用の範囲</li>
     </ul>
