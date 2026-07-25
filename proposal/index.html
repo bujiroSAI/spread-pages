@@ -14,6 +14,8 @@
     --quiet:#4a5560; --quiet-bg:#ecedec;
     --head1:#0d3a41; --head2:#12525b;
     --onfill:#ffffff; --dim:#b9c2c6;
+    --b1:#9fd0d6; --b2:#4ba7b3; --b3:#2b8792; --b4:#12626d;
+    --wk:#ffffff; --wkink:#1d2328; --wksub:#6b757c; --wkrule:#e6e4dd;
   }
   @media (prefers-color-scheme: dark){
     :root{
@@ -24,6 +26,8 @@
       --quiet:#9fadb6; --quiet-bg:#1c2429;
       --head1:#0a2529; --head2:#0f3a41;
       --onfill:#12171a; --dim:#3f4c53;
+      --b1:#2a5c63; --b2:#3d8f99; --b3:#54b0ba; --b4:#7fcdd5;
+      --wk:#1e262a; --wkink:#e2e8ea; --wksub:#98a4ab; --wkrule:#303b41;
     }
   }
   :root[data-theme="dark"]{
@@ -34,6 +38,8 @@
     --quiet:#9fadb6; --quiet-bg:#1c2429;
     --head1:#0a2529; --head2:#0f3a41;
     --onfill:#12171a; --dim:#3f4c53;
+    --b1:#2a5c63; --b2:#3d8f99; --b3:#54b0ba; --b4:#7fcdd5;
+    --wk:#1e262a; --wkink:#e2e8ea; --wksub:#98a4ab; --wkrule:#303b41;
   }
   :root[data-theme="light"]{
     --ground:#f7f6f2; --panel:#ffffff; --panel2:#edeae1; --rule:#d9d5c9;
@@ -43,6 +49,8 @@
     --quiet:#4a5560; --quiet-bg:#ecedec;
     --head1:#0d3a41; --head2:#12525b;
     --onfill:#ffffff; --dim:#b9c2c6;
+    --b1:#9fd0d6; --b2:#4ba7b3; --b3:#2b8792; --b4:#12626d;
+    --wk:#ffffff; --wkink:#1d2328; --wksub:#6b757c; --wkrule:#e6e4dd;
   }
 
   body{
@@ -66,9 +74,10 @@
   h3{font-size:.97rem; margin-top:20px; text-wrap:balance;}
   .rule{height:2px; background:var(--sys); width:40px; margin:12px 0 18px; opacity:.5;}
   .lede{font-size:.95rem;}
+  .note{font-size:.83rem; color:var(--sub);}
 
   .fig{margin-top:18px; overflow-x:auto; background:var(--panel); border:1px solid var(--rule); border-radius:10px; padding:18px;}
-  .fig svg{display:block; min-width:660px; width:100%; height:auto;}
+  .fig svg{display:block; min-width:640px; width:100%; height:auto;}
   .figcap{font-size:.79rem; color:var(--sub); margin-top:10px; padding:0 2px;}
   svg text{font-family:inherit;}
   .sv-box{fill:var(--panel); stroke:var(--rule);}
@@ -84,7 +93,6 @@
 
   .grid{display:grid; gap:12px; margin-top:18px;}
   .g3{grid-template-columns:repeat(auto-fit,minmax(215px,1fr));}
-  .g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
 
   .voice{background:var(--panel); border:1px solid var(--rule); border-top:3px solid var(--hum2); border-radius:8px; padding:16px 18px;}
   .voice .cnt{font-size:.71rem; color:var(--hum); letter-spacing:.06em; font-variant-numeric:tabular-nums;}
@@ -118,18 +126,26 @@
             font-weight:700; padding:3px 11px; border-radius:999px; letter-spacing:.05em;}
   .lay h4{font-size:1.02rem; margin:9px 0 5px;}
   .lay p{font-size:.89rem; color:var(--sub); margin-top:3px;}
+  .lay ul{margin:8px 0 0 1.1em; font-size:.88rem;}
+  .lay li{margin:.26em 0;}
   .lay--key{background:var(--sys-bg);}
+  .lay--f{border-style:dashed; border-color:var(--faint); background:transparent;}
+  .lay--f .tag{background:var(--faint);}
+  .fut{border:1.5px dashed var(--faint); border-radius:8px; padding:9px 13px; margin-top:11px; font-size:.84rem; color:var(--sub);}
 
-  /* 4ステップ */
-  .steps{margin-top:18px; display:flex; flex-direction:column; gap:6px;}
-  .st{display:grid; grid-template-columns:80px 1fr; gap:16px; align-items:baseline;
-      background:var(--panel); border:1px solid var(--rule); border-radius:7px; padding:12px 16px;}
+  /* 導入ステップ */
+  .steps{margin-top:18px; display:flex; flex-direction:column; gap:7px;}
+  .st{display:grid; grid-template-columns:40px 82px 1fr; gap:14px; align-items:baseline;
+      background:var(--panel); border:1px solid var(--rule); border-radius:7px; padding:13px 16px;}
+  .st .no{font-weight:800; font-size:.86rem; color:var(--faint); font-variant-numeric:tabular-nums; letter-spacing:.04em;}
   .st .nm{font-weight:700; font-size:.97rem; color:var(--sys);}
   .st .ds{font-size:.89rem;}
-  @media (max-width:560px){ .st{grid-template-columns:1fr; gap:3px;} }
+  .st .ds ul{margin:6px 0 0 1.05em; font-size:.85rem; color:var(--sub);}
+  .st .ds li{margin:.18em 0;}
+  @media (max-width:600px){ .st{grid-template-columns:40px 1fr; gap:6px 12px;} .st .ds{grid-column:1 / -1;} }
 
   /* 施策カード */
-  .legend{display:flex; flex-wrap:wrap; gap:16px; margin-top:16px; font-size:.79rem; color:var(--sub);}
+  .legend{display:flex; flex-wrap:wrap; gap:16px; margin-top:14px; font-size:.79rem; color:var(--sub);}
   .legend span{display:flex; align-items:center; gap:7px;}
   .sw{width:22px; height:13px; border-radius:3px; display:inline-block;}
   .sw-a{border:2px solid var(--hum2); background:var(--hum-bg);}
@@ -147,6 +163,10 @@
   .cd--idea{border:1.5px dashed var(--faint); background:transparent;}
   .cd--idea h4{color:var(--sub);}
 
+  .qbox{background:var(--sys-bg); border:1px solid var(--sys2); border-radius:10px; padding:16px 20px; margin-top:18px;}
+  .qbox .q{font-size:.7rem; letter-spacing:.14em; font-weight:700; color:var(--sys);}
+  .qbox p{font-size:1rem; font-weight:700; margin-top:6px;}
+
   .tblwrap{overflow-x:auto; margin-top:16px;}
   table{width:100%; border-collapse:collapse; font-size:.87rem; background:var(--panel);}
   th,td{border:1px solid var(--rule); padding:10px 12px; text-align:left; vertical-align:top;}
@@ -154,16 +174,48 @@
   td.k{white-space:nowrap; font-weight:700;}
 
   .slack{background:var(--panel2); border:1px solid var(--rule); border-radius:8px; padding:14px 16px;
-         margin-top:12px; font-size:.85rem; line-height:1.75; white-space:pre-wrap;}
+         margin-top:12px; font-size:.87rem; line-height:1.85; white-space:pre-wrap;}
   .slack .who{font-weight:700; font-size:.75rem; color:var(--sub); display:block; margin-bottom:7px; letter-spacing:.05em;}
 
-  ol.ask{counter-reset:a; list-style:none; padding-left:0; margin-top:16px;}
-  ol.ask li{counter-increment:a; position:relative; padding:12px 16px 12px 48px; background:var(--panel);
-            border:1px solid var(--rule); border-radius:8px; margin-top:9px; font-size:.9rem;}
-  ol.ask li::before{content:counter(a); position:absolute; left:17px; top:12px; font-weight:800; color:var(--sys);
-                    font-variant-numeric:tabular-nums;}
+  /* Weekly モック */
+  .wk{background:var(--wk); border:1px solid var(--wkrule); border-radius:10px; padding:22px 24px; margin-top:14px; color:var(--wkink);}
+  .wk h4{font-size:1.08rem; margin:0;}
+  .wk .sub{font-size:.82rem; color:var(--wksub); margin-top:4px;}
+  .wk .cap{font-size:.78rem; color:var(--wksub); margin-top:14px;}
+  .wknums{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:11px; margin-top:18px;}
+  .wknum{border:1px solid var(--wkrule); border-radius:9px; padding:14px 16px;}
+  .wknum .dash{width:22px; height:3px; background:var(--b3); border-radius:2px;}
+  .wknum .n{font-size:2rem; font-weight:800; line-height:1.2; margin-top:9px; font-variant-numeric:tabular-nums;}
+  .wknum .lb{font-size:.82rem; font-weight:700; margin-top:2px;}
+  .wknum .ds{font-size:.73rem; color:var(--wksub); margin-top:2px;}
+  .bars{margin-top:18px; display:flex; flex-direction:column; gap:13px;}
+  .bar{display:grid; grid-template-columns:170px 1fr; gap:14px; align-items:center;}
+  .bar .bl{font-size:.85rem; font-weight:700; text-align:right;}
+  .bar .tr{display:grid; grid-template-columns:1fr auto; align-items:center; gap:11px;}
+  .bar .track{width:100%;}
+  .bar .fill{display:block; height:34px; border-radius:4px;}
+  .bar .val{font-size:.9rem; font-weight:800; white-space:nowrap; font-variant-numeric:tabular-nums;}
+  .bar .pct{font-size:.78rem; color:var(--wksub); font-weight:400;}
+  @media (max-width:560px){ .bar{grid-template-columns:1fr; gap:4px;} .bar .bl{text-align:left;} }
+  .wkfig{overflow-x:auto; margin-top:16px;}
+  .wkfig svg{display:block; min-width:620px; width:100%; height:auto;}
+  .nd{fill:var(--sys-bg); stroke:var(--b2); stroke-width:1.5;}
+  .ndl{stroke:var(--wkrule); stroke-width:1.6; fill:none;}
+  .ndn{fill:var(--wkink); font-size:12px; font-weight:700; text-anchor:middle;}
+  .ndf{fill:var(--wksub); font-size:10px; text-anchor:middle;}
+  .pill{fill:var(--wk); stroke:var(--wkrule);}
+  .pillt{fill:var(--wkink); font-size:11px; font-weight:700; text-anchor:middle;}
 
-  .note{font-size:.83rem; color:var(--sub);}
+  /* スケジュール */
+  .sched{display:flex; flex-direction:column; gap:12px; margin-top:18px;}
+  .sc{display:grid; grid-template-columns:150px 1fr; gap:18px; background:var(--panel);
+      border:1px solid var(--rule); border-radius:9px; padding:16px 18px;}
+  .sc .wh{font-weight:700; font-size:.92rem; color:var(--sys);}
+  .sc ul{margin:0 0 0 1.1em; font-size:.9rem;} .sc li{margin:.3em 0;}
+  .sc--now{border:2px solid var(--hum2); background:var(--hum-bg);}
+  .sc--now .wh{color:var(--hum);}
+  @media (max-width:600px){ .sc{grid-template-columns:1fr; gap:8px;} }
+
   footer{max-width:900px; margin:60px auto 0; padding:20px 22px 46px; font-size:.75rem;
          color:var(--faint); text-align:center; border-top:1px solid var(--rule);}
 </style>
@@ -174,7 +226,7 @@
   <div class="hero-in">
     <div class="eyebrow">SPReAD-1000 ／ AI for Science 研究革新プログラム（チャレンジ型）</div>
     <h1>コミュニティの知見を<br>残す・整理する・返す仕組み</h1>
-    <p class="lead">7/22キックオフで挙がった声への対応方針。POC（試行）としての提案。</p>
+    <p class="lead">7/22キックオフで挙がった声への対応方針。PoC（試行）としての提案。</p>
     <div class="meta">2026年7月／スタジオサイタマ合同会社</div>
   </div>
 </header>
@@ -212,8 +264,9 @@
 
 <!-- 02 -->
 <section>
-  <h2><span class="num">02</span>POC（試行）として導入し、段階ごとに継続を判断する</h2>
+  <h2><span class="num">02</span>PoC（試行）として導入し、段階ごとに継続を判断する</h2>
   <div class="rule"></div>
+
   <div class="defs">
     <div class="df"><span class="lb">前提</span><span class="tx">当初の運営管理業務スコープに含まれていないシステムの開発に着手することを、ご了承いただきたい。</span></div>
     <div class="df"><span class="lb">立て付け</span><span class="tx">PoC的な位置付けとして、コミュニティを良くすることに挑戦する積極的施策。</span></div>
@@ -232,10 +285,7 @@
     <h3>あわせて今後ご相談したい事項</h3>
     <ul>
       <li><strong>システム・データの帰属</strong> — 本件で扱う参加者のデータは既存の契約の範囲での取り扱いとする。一方で開発するシステムは含めない想定</li>
-      <li><strong>参加者への開示と同意</strong> — 収集範囲・用途・匿名度の選択肢について、周知文面のレビューと合意</li>
-      <li><strong>生成物の取り扱い</strong> — AIが生成したレポート等の権利と、二次利用の範囲</li>
     </ul>
-    <p class="note" style="margin-top:10px;">いずれも進め方の方向性が固まった段階で、別途ご相談したい。</p>
   </div>
 
   <div class="box box--h" style="margin-top:12px;">
@@ -253,42 +303,104 @@
   <div class="layers">
     <div class="lay">
       <span class="tag">第1層</span>
-      <h4>raw層 — 残す</h4>
-      <p>Slackの発話、イベントの記録、活動報告を加工せず保全する。90日問題の受け皿。整理層からは必ずこの原文に遡れる形にする。</p>
+      <h4>ストック層（raw） — データ収集・蓄積</h4>
+      <ul>
+        <li><strong>Slackトーク履歴</strong> — 最重要。90日消失対策として定期取得・蓄積</li>
+        <li><strong>イベントの議事録・資料</strong> — 事務局の定期イベント＋参加者同士のミニイベント</li>
+        <li><strong>参加者の資料</strong> — 自己紹介シート、アンケート結果</li>
+      </ul>
+      <div class="fut"><strong>開拓領域</strong>：参加者の研究情報・研究進捗。取得ハードルと機密の扱いがセンシティブだが、ここが知的財産の本丸。</div>
     </div>
+
     <div class="lay lay--key">
       <span class="tag">第2層</span>
-      <h4>wiki層 — 整理する</h4>
-      <p>ここが分かれ目。生ログのままでは量が増えるほど使えなくなるため、索引として整理する。<br>
-      ① メンバーページ　② 事例・困りごとの索引　③ 接点の記録　④ 週次ダイジェスト</p>
+      <h4>ナレッジ層（wiki） — rawを蒸留した「コミュニティの理解」</h4>
+      <ul>
+        <li><strong>AI向け</strong> — 第3層のエージェント／インターフェースが参照する索引・知識域</li>
+        <li><strong>人間向け</strong> — 「これを見れば現状・今後のイベント・アップデートが分かる」ダイジェスト</li>
+      </ul>
+      <p>単なるログ倉庫は量が増えるほど使えなくなる。この層があるかどうかが分かれ目になる。</p>
     </div>
-    <div class="lay">
+
+    <div class="lay lay--f">
       <span class="tag">第3層</span>
-      <h4>還元層 — 返す</h4>
-      <p>整理した内容を、参加者に届く形で返す。週次レポートやアンケート結果の共有から始める。</p>
+      <h4>エージェント層 — コミュニティ常駐エージェント</h4>
+      <ul>
+        <li><strong>一次スコープ</strong> — イベント予定などの事実照会、参加者の質問への回答</li>
+        <li><strong>将来像</strong> — 参加者同士のクロスオーバー交流の促進、発言の誘発</li>
+      </ul>
     </div>
   </div>
 </section>
 
 <!-- 04 -->
 <section>
-  <h2><span class="num">04</span>施策は、関わり方の段階に合わせて順に実装する</h2>
+  <h2><span class="num">04</span>導入ステップ：関わり方の段階に合わせて順に実装する</h2>
   <div class="rule"></div>
   <p class="lede">コミュニティへの関わり方を4段階で捉え、<strong>下の段階から順に施策を実装していく</strong>。全施策を一度に展開せず、参加者の状態に合わせて重ねる。</p>
 
   <div class="steps">
-    <div class="st"><span class="nm">関与</span><span class="ds">見るだけで成立する状態。最小限のアクションでコミュニティに関われる</span></div>
-    <div class="st"><span class="nm">参加</span><span class="ds">アンケートに回答するなど、受け身の姿勢のままでも場に加われる</span></div>
-    <div class="st"><span class="nm">行動</span><span class="ds">自分から投稿する、話題を振る</span></div>
-    <div class="st"><span class="nm">牽引</span><span class="ds">他の参加者に応答する、自ら発表して場を引っ張る</span></div>
+    <div class="st">
+      <span class="no">01</span><span class="nm">関与</span>
+      <span class="ds">見るだけで成立する状態。最小限のアクションでコミュニティに関われる</span>
+    </div>
+    <div class="st">
+      <span class="no">02</span><span class="nm">参加</span>
+      <span class="ds">アンケートに回答するなど、受け身の姿勢のままでも場に加われる</span>
+    </div>
+    <div class="st">
+      <span class="no">03</span><span class="nm">行動</span>
+      <span class="ds">自分から投稿する、話題を振る、他の参加者に応答する</span>
+    </div>
+    <div class="st">
+      <span class="no">04</span><span class="nm">牽引</span>
+      <span class="ds">自ら場を引っ張る。方向性の案として——
+        <ul>
+          <li>コミュニティリーダーの育成</li>
+          <li>エージェントによる返答</li>
+          <li>参加者主体のライトニングトーク会　など</li>
+        </ul>
+      </span>
+    </div>
   </div>
 </section>
 
 <!-- 05 -->
 <section>
-  <h2><span class="num">05</span>具体案</h2>
+  <h2><span class="num">05</span>施策イメージ</h2>
   <div class="rule"></div>
-  <p class="lede">想定している施策を並べる。枠線が着手時期を示す。</p>
+  <p class="lede">施策は2つのレイヤーに分かれる。ひとつは<strong>3層の基盤そのものの開発</strong>、もうひとつはその上で回す<strong>コミュニケーション施策</strong>。</p>
+
+  <h3 style="margin-top:26px;">レイヤーA — 基盤の開発</h3>
+  <div class="legend">
+    <span><i class="sw sw-a"></i>初手として着手</span>
+    <span><i class="sw sw-b"></i>続けて実装</span>
+  </div>
+
+  <div class="cards">
+    <div class="cd cd--now">
+      <h4>第1層｜収集・保全パイプライン</h4>
+      <p>Slack Events API → Azure Functions で対象チャンネルの投稿を自動取り込み。Azure Blob Storage に全量保全（不可変・原文保持）。Box APIで自己紹介シート・配布資料も取り込む</p>
+      <span class="stg">Slackログの保全＝90日問題の解決</span>
+    </div>
+    <div class="cd cd--now">
+      <h4>第2層｜索引・wikiの生成</h4>
+      <p>Azure OpenAI で構造化し、メンバーページ／事例索引／接点の記録／週次ダイジェストを生成・更新。すべての記述からraw層の元投稿に遡れるリンクを保持</p>
+      <span class="stg">AIと人の双方が参照できる状態に</span>
+    </div>
+    <div class="cd">
+      <h4>第3層｜Slackへの還元</h4>
+      <p>生成物を事務局の承認フローを経て Slack Web API で投稿。将来的には Events API 経由で個別の発話に応答するボットへ拡張</p>
+      <span class="stg">まず配信のみ。応答は別途判断</span>
+    </div>
+  </div>
+
+  <h3 style="margin-top:30px;">レイヤーB — コミュニケーション施策</h3>
+  <div class="qbox">
+    <div class="q">最大の課題</div>
+    <p style="margin-top:6px;">いかに参加者のraw情報を収集していくのか。</p>
+    <p class="note" style="margin-top:8px;">基盤が動いても、集まる情報がなければwiki層は育たない。参加のハードルを下げる施策を、関わり方の段階に合わせて重ねる。</p>
+  </div>
 
   <div class="legend">
     <span><i class="sw sw-a"></i>初手として着手</span>
@@ -298,13 +410,8 @@
 
   <div class="cards">
     <div class="cd cd--now">
-      <h4>Slackログの保全</h4>
-      <p>投稿をraw層に自動保全。90日問題への直接の対応で、参加者に負担は生じない</p>
-      <span class="stg">関与</span>
-    </div>
-    <div class="cd cd--now">
       <h4>週次1問アンケート</h4>
-      <p>1問・1分・非公開。失敗談も歓迎とし、答えやすさを最優先にする</p>
+      <p>1問・30秒・選択式。失敗談も歓迎とし、答えやすさを最優先にする</p>
       <span class="stg">参加</span>
     </div>
     <div class="cd cd--now">
@@ -313,11 +420,16 @@
       <span class="stg">関与</span>
     </div>
     <div class="cd cd--now">
+      <h4>自己紹介シートの集計・共有</h4>
+      <p>Box上の自己紹介シートを集計し、「いまみんながどの段階にいるか」を可視化して返す</p>
+      <span class="stg">関与</span>
+    </div>
+
+    <div class="cd">
       <h4>イベント記録の様式変更</h4>
       <p>ブレイクアウトの内容が記録として残る形に運営を変える。記入シート1枚から</p>
       <span class="stg">参加</span>
     </div>
-
     <div class="cd">
       <h4>週次レポートの配信</h4>
       <p>その週に何が語られたかをwiki層から生成して配信。読むだけでよい</p>
@@ -369,79 +481,137 @@
 
 <!-- 06 -->
 <section>
-  <h2><span class="num">06</span>初手の具体 — 週次1問アンケート</h2>
+  <h2><span class="num">06</span>具体例 — 週次アンケート</h2>
   <div class="rule"></div>
-  <p class="lede">「AI活用事例を投稿してください」では手は挙がらない。1問だけのアンケートから始める。</p>
+  <p class="lede">「AI活用事例を投稿してください」では手は挙がらない。スタンプひとつで答えられる選択式から始める。</p>
 
   <div class="slack">
-<span class="who">＃ 事務局からの投稿（イメージ）</span>📣 今週の1問
+<span class="who">＃ 事務局からの投稿（イメージ）</span>📣 今週の1問 ＼30秒で終わります／
 
-今週、AIに何をやらせましたか？
-うまくいかなかったことでも大歓迎です。
+今週、AIをいちばん使ったのはどれですか？ 🤖
 
-▼ こんな粒度で大丈夫です
-・論文PDFを20本読ませて、手法だけ表にまとめさせた
-・手書きの実験ノートをテキスト化したかったが、精度が出なかった
+1️⃣ 文献を読む・まとめる 📚
+2️⃣ コードを書く・直す 💻
+3️⃣ データの前処理・整理 📊
+4️⃣ 今週はあんまり触れてない 🫠
 
-▶ 回答はこちら（1分・非公開）
-※いただいた内容は事務局でまとめ、翌週のレポートでご紹介します（お名前を出すかは選べます）</div>
+⬇️ 下のスタンプで教えてください！（複数OK）
 
-  <p style="margin-top:14px;"><strong>返すところまでを必ずセットにする。</strong>回答が集まったら翌週かならず結果を返す。</p>
+うまくいかなかった話も大歓迎です。よければスレッドにひとことどうぞ 🙌</div>
 
-  <div class="slack">
-<span class="who">＃ 翌週のお返し（イメージ）</span>📊 今週の1問・結果
+  <p style="margin-top:16px;"><strong>返すところまでを必ずセットにする。</strong>集まった回答は、翌週のレポートでかならず返す。</p>
 
-23名の方にご回答いただきました。ありがとうございます！
-
-いちばん多かったのは「文献の読み込み・整理」（9名）。
-次いで「コードを書かせる」（5名）、「データの前処理」（4名）。
-
-▼ 気になった声
-「手書きの実験ノートをテキスト化したいが精度が出ない」（材料系の方）
-　→ 同じことで悩んでいる方、いらっしゃいませんか？ 🙋 のスタンプで教えてください</div>
-
-  <div class="fig" style="padding:14px 18px;">
-    <svg viewBox="0 0 660 118" role="img" aria-label="問いかけ、回答、還元、次の発話という循環">
-      <rect class="sv-sys" x="8" y="34" width="132" height="46" rx="7"/>
-      <text class="sv-t" x="34" y="55">① 問いかける</text>
-      <text class="sv-s" x="42" y="72">週次1問</text>
-      <path class="sv-a" d="M146 57 H176"/><path class="sv-ah" d="M176 57 l-8 -4.5 v9 z"/>
-
-      <rect class="sv-box" x="182" y="34" width="132" height="46" rx="7"/>
-      <text class="sv-t" x="216" y="55">② 答える</text>
-      <text class="sv-s" x="204" y="72">1分・非公開</text>
-      <path class="sv-a" d="M320 57 H350"/><path class="sv-ah" d="M350 57 l-8 -4.5 v9 z"/>
-
-      <rect class="sv-box" x="356" y="34" width="132" height="46" rx="7"/>
-      <text class="sv-t" x="382" y="55">③ 返す</text>
-      <text class="sv-s" x="374" y="72">翌週レポート</text>
-      <path class="sv-a" d="M494 57 H524"/><path class="sv-ah" d="M524 57 l-8 -4.5 v9 z"/>
-
-      <rect class="sv-hum" x="530" y="34" width="122" height="46" rx="7"/>
-      <text class="sv-t" x="550" y="55">④ 次の発話</text>
-      <text class="sv-s" x="548" y="72">「自分も」</text>
-
-      <path class="sv-a" d="M591 86 V104 H74 V86"/><path class="sv-ah" d="M74 82 l-4.5 8 h9 z"/>
-    </svg>
-    <div class="figcap">図1｜この1周を回すことが初手の目標。</div>
+  <!-- Weekly mock 1 -->
+  <div class="wk">
+    <h4>今週の数字</h4>
+    <div class="sub">SPReAD Weekly #01　｜　2026年7月20日〜22日</div>
+    <div class="wknums">
+      <div class="wknum"><div class="dash"></div><div class="n">74</div><div class="lb">投稿</div><div class="ds">スレッド返信30件を含む</div></div>
+      <div class="wknum"><div class="dash"></div><div class="n">31</div><div class="lb">発信した人</div><div class="ds">この一週間で</div></div>
+      <div class="wknum"><div class="dash"></div><div class="n">138</div><div class="lb">リアクション</div><div class="ds">みなさんの👍や🎉</div></div>
+      <div class="wknum"><div class="dash"></div><div class="n">11</div><div class="lb">新チャンネル</div><div class="ds">雑談＋領域別×10</div></div>
+      <div class="wknum"><div class="dash"></div><div class="n">+18</div><div class="lb">自己紹介</div><div class="ds">今週の新着</div></div>
+      <div class="wknum"><div class="dash"></div><div class="n">40</div><div class="lb">ブレイクアウト</div><div class="ds">キックオフの部屋数</div></div>
+    </div>
   </div>
 
-  <p class="note" style="margin-top:12px;">※ 投稿文はたたき台。配信前に文面を確認いただく。</p>
+  <!-- Weekly mock 2 -->
+  <div class="wk">
+    <h4>いま、みなさんはどの段階にいるか</h4>
+    <div class="sub">自己紹介シート390枚の「AIを使いたい場面」タグを全部数えました（複数選択・タグ記載316枚）</div>
+    <div class="bars">
+      <div class="bar">
+        <span class="bl">① 研究環境整備</span>
+        <span class="tr"><span class="track"><span class="fill" style="width:47%; background:var(--b1);"></span></span><span class="val">126人 <span class="pct">(40%)</span></span></span>
+      </div>
+      <div class="bar">
+        <span class="bl">② データ整理・分析試行</span>
+        <span class="tr"><span class="track"><span class="fill" style="width:100%; background:var(--b2);"></span></span><span class="val">268人 <span class="pct">(85%)</span></span></span>
+      </div>
+      <div class="bar">
+        <span class="bl">③ 出力確認・解釈</span>
+        <span class="tr"><span class="track"><span class="fill" style="width:69%; background:var(--b3);"></span></span><span class="val">185人 <span class="pct">(59%)</span></span></span>
+      </div>
+      <div class="bar">
+        <span class="bl">④ 活用改善・研究深化</span>
+        <span class="tr"><span class="track"><span class="fill" style="width:56%; background:var(--b4);"></span></span><span class="val">150人 <span class="pct">(47%)</span></span></span>
+      </div>
+    </div>
+    <div class="cap">いちばん多いのは②。みなさんいま、まさに手を動かしはじめた段階です。</div>
+  </div>
+
+  <!-- Weekly mock 3 -->
+  <div class="wk">
+    <h4>今週生まれたつながり</h4>
+    <div class="sub">分野を越えて、会話が始まっています（7/20〜7/22の公開チャンネルから）</div>
+    <div class="wkfig">
+      <svg viewBox="0 0 880 420" role="img" aria-label="公開チャンネルでの返信・言及から生まれた参加者どうしのつながり">
+        <!-- cluster 1 -->
+        <rect class="pill" x="118" y="26" width="252" height="26" rx="13"/>
+        <text class="pillt" x="244" y="44">Slack×AI連携・自己紹介シート解析</text>
+        <path class="ndl" d="M244 104 L142 196"/>
+        <path class="ndl" d="M244 104 L244 196"/>
+        <path class="ndl" d="M244 104 L346 196"/>
+        <path class="ndl" d="M244 218 L332 292"/>
+        <circle class="nd" cx="244" cy="82" r="22"/>
+        <text class="ndn" x="244" y="126">小椋さん</text><text class="ndf" x="244" y="142">分析化学</text>
+        <circle class="nd" cx="142" cy="218" r="22"/>
+        <text class="ndn" x="142" y="262">木村さん</text>
+        <circle class="nd" cx="244" cy="218" r="22"/>
+        <text class="ndn" x="244" y="262">三戸さん</text><text class="ndf" x="244" y="278">数学</text>
+        <circle class="nd" cx="346" cy="218" r="22"/>
+        <text class="ndn" x="346" y="262">小山さん</text><text class="ndf" x="346" y="278">材料科学</text>
+        <rect class="pill" x="256" y="278" width="150" height="24" rx="12"/>
+        <text class="pillt" x="331" y="295">AI環境ツアー構想</text>
+        <circle class="nd" cx="346" cy="330" r="22"/>
+        <text class="ndn" x="346" y="374">太田垣さん</text>
+
+        <!-- cluster 2 -->
+        <rect class="pill" x="500" y="26" width="182" height="26" rx="13"/>
+        <text class="pillt" x="591" y="44">現場で動かすLocal LLM</text>
+        <path class="ndl" d="M562 82 L620 82"/>
+        <circle class="nd" cx="540" cy="82" r="22"/>
+        <text class="ndn" x="540" y="126">劉さん</text><text class="ndf" x="540" y="142">医療情報</text>
+        <circle class="nd" cx="642" cy="82" r="22"/>
+        <text class="ndn" x="642" y="126">狩野さん</text><text class="ndf" x="642" y="142">修士課程</text>
+
+        <!-- cluster 3 -->
+        <rect class="pill" x="508" y="192" width="166" height="26" rx="13"/>
+        <text class="pillt" x="591" y="210">「語り」×LLMの倫理</text>
+        <path class="ndl" d="M562 250 L620 250"/>
+        <circle class="nd" cx="540" cy="250" r="22"/>
+        <text class="ndn" x="540" y="294">新井さん</text><text class="ndf" x="540" y="310">社会科学</text>
+        <circle class="nd" cx="642" cy="250" r="22"/>
+        <text class="ndn" x="642" y="294">林さん</text><text class="ndf" x="642" y="310">発達障害研究</text>
+
+        <!-- cluster 4 -->
+        <rect class="pill" x="716" y="110" width="146" height="26" rx="13"/>
+        <text class="pillt" x="789" y="128">自己紹介から声かけ</text>
+        <path class="ndl" d="M789 190 L789 246"/>
+        <circle class="nd" cx="789" cy="168" r="22"/>
+        <text class="ndn" x="789" y="212">布施さん</text><text class="ndf" x="789" y="228">生命科学</text>
+        <circle class="nd" cx="789" cy="268" r="22"/>
+        <text class="ndn" x="789" y="312">大川さん</text><text class="ndf" x="789" y="328">理科教育学</text>
+      </svg>
+    </div>
+    <div class="cap">丸＝話した人（分野つき）、線＝公開チャンネルでの返信・言及。この地図は毎週すこしずつ育っていきます。</div>
+  </div>
+
+  <p class="note" style="margin-top:14px;">※ いずれもたたき台。配信前に文面・掲載範囲を確認いただく。</p>
 </section>
 
 <!-- 07 -->
 <section>
-  <h2><span class="num">07</span>全体像 — どこで何を動かすか</h2>
+  <h2><span class="num">07</span>全体像</h2>
   <div class="rule"></div>
-  <p class="lede">参加者が使う場はSlack・Box・Zoomのまま変えない。<strong>取り込み・保管・生成はスタジオサイタマが管理するAzure環境の中で完結し、生成物はSlackに戻す</strong>。</p>
+  <p class="lede">参加者が使う場はSlack・Box・Zoomのまま変えない。<strong>取り込み・保管・生成はISMAP登録済みのAzure環境の中で完結し、生成物はSlackに戻す</strong>。</p>
 
   <div class="fig">
     <svg viewBox="0 0 860 300" role="img" aria-label="Slack・Box・Zoomから取り込み、Azure内で保管・生成し、Slackへ返す構成">
       <text class="sv-l" x="14" y="22">参加者が使う場（現状のまま）</text>
-      <text class="sv-l" x="228" y="22">スタジオサイタマが管理するAZURE環境</text>
+      <text class="sv-l" x="228" y="22">AZURE環境（ISMAP登録済み）</text>
       <text class="sv-l" x="628" y="22">参加者に返す</text>
 
-      <!-- left -->
       <rect class="sv-box" x="14" y="36" width="180" height="46" rx="7"/>
       <text class="sv-t" x="28" y="57">Slack ワークスペース</text>
       <text class="sv-s" x="28" y="74">投稿・スレッド・アンケート回答</text>
@@ -456,7 +626,6 @@
 
       <path class="sv-a" d="M200 118 H224"/><path class="sv-ah" d="M224 118 l-8 -4.5 v9 z"/>
 
-      <!-- azure container -->
       <rect class="sv-dash" x="228" y="30" width="356" height="230" rx="10"/>
 
       <rect class="sv-box" x="244" y="44" width="324" height="44" rx="7"/>
@@ -476,7 +645,6 @@
 
       <path class="sv-a" d="M590 118 H614"/><path class="sv-ah" d="M614 118 l-8 -4.5 v9 z"/>
 
-      <!-- right -->
       <rect class="sv-hum" x="620" y="36" width="226" height="104" rx="7"/>
       <text class="sv-t" x="634" y="57">Slack へ投稿</text>
       <text class="sv-s" x="634" y="77">・週次レポート</text>
@@ -488,18 +656,42 @@
       <text class="sv-t" x="634" y="173">ボット応答</text>
       <text class="sv-s" x="634" y="190">構想。実施は別途判断</text>
 
-      <!-- loop -->
       <path class="sv-a" d="M733 206 V276 H104 V208"/><path class="sv-ah" d="M104 204 l-4.5 8 h9 z"/>
       <rect x="286" y="262" width="252" height="26" rx="6" fill="var(--panel)"/>
       <text class="sv-k" x="300" y="280">参加者の発話が増え、raw層に戻る</text>
     </svg>
-    <div class="figcap">図2｜Slack・Box・Zoomは現状のまま。追加で動くのはAzure環境の中だけで、参加者から見える変化は「Slackに届く投稿が増える」ことのみ。</div>
+    <div class="figcap">図｜Slack・Box・Zoomは現状のまま。追加で動くのはAzure環境の中だけで、参加者から見える変化は「Slackに届く投稿が増える」ことのみ。</div>
   </div>
 </section>
 
 <!-- 08 -->
 <section>
-  <h2><span class="num">08</span>前提条件（セキュリティ・コンプライアンス）</h2>
+  <h2><span class="num">08</span>スケジュール</h2>
+  <div class="rule"></div>
+
+  <div class="sched">
+    <div class="sc sc--now">
+      <span class="wh">8月 第1〜2週</span>
+      <ul>
+        <li><strong>第1層（収集・保全）の実装</strong> — Slackログの保全を本番接続</li>
+        <li><strong>第2層（索引・wiki）の実装</strong> — 構造化と索引生成</li>
+        <li><strong>週次アンケートの運用開始</strong> — 出題と、翌週の還元投稿までを1周させる</li>
+        <li><strong>自己紹介シートの集計・共有</strong> — Box上のシートを集計して返す</li>
+      </ul>
+    </div>
+    <div class="sc">
+      <span class="wh">その後</span>
+      <ul>
+        <li>上記の結果を検証したうえで、施策を順次拡張していく</li>
+        <li>拡張の範囲・時期は、各段階の結果を見て都度ご相談したい</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <h2><span class="num">09</span>前提条件（セキュリティ・コンプライアンス）</h2>
   <div class="rule"></div>
   <div class="tblwrap">
     <table>
@@ -515,24 +707,11 @@
   </div>
 </section>
 
-<!-- 09 -->
-<section>
-  <h2><span class="num">09</span>ご相談事項</h2>
-  <div class="rule"></div>
-  <ol class="ask">
-    <li><strong>ログ保全方針</strong> — Slack有料化とAzure側保全の関係整理（併用か、保全で代替か）。キックオフで参加者からも同趣旨の声が出ており、方針は早めに定めたい</li>
-    <li><strong>参加者への開示・同意</strong> — 収集範囲・用途・匿名度の選択肢について、周知文面の確認</li>
-    <li><strong>イベント記録の様式変更</strong> — 次回イベントからの適用可否と運営分担</li>
-    <li><strong>契約面の整理</strong> — スコープ外の試行としての進め方、システム・データ・生成物の帰属の扱い</li>
-    <li><strong>計算資源のログ</strong> — 提供形態と管理権限の確認（継続論点）</li>
-  </ol>
-</section>
-
 </main>
 
 <footer>
   スタジオサイタマ合同会社 ／ SPReAD-1000 コミュニティ運営<br>
-  本資料はPOC（試行）としての提案であり、記載内容の実施を約束するものではない
+  本資料はPoC（試行）としての提案であり、記載内容の実施を約束するものではない
 </footer>
 </body>
 </html>
